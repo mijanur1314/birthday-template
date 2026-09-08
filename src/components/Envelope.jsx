@@ -39,7 +39,7 @@ export default function Envelope({ onOpen }) {
         <div className="env-pocket"></div>
         <div className="env-flap paper-texture"></div>
         <div className="seal">N</div>
-      </div>
+      </motion.div>
       
       {!opened && <div className="tap-hint">tap the envelope to open it</div>}
     </div>
