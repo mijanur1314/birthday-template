@@ -23,10 +23,10 @@ export default function Envelope({ onOpen }) {
         <div className="env-body paper-texture">
           <div className="env-shade-left"></div>
           <div className="env-shade-right"></div>
-          <div className="env-label">Nourin Islam ♡</div>
+          <div className="env-label">Your Partner's Name ♡</div>
         </div>
         <div className="letter-paper paper-texture">
-          <p>Happy Birthday, My Kuchu Puchu 😗</p>
+          <p>Happy Birthday, My Love 😗</p>
         </div>
         <div className="env-pocket"></div>
         <div className="env-flap paper-texture"></div>

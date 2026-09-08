@@ -63,7 +63,7 @@ export default function Closing({ onPrev, onRestart }) {
       style={{ gap: "1.2rem", minHeight: "60vh", position: "relative" }}
     >
       {/* Preload the large background image so it fades in smoothly later */}
-      <img src="/IMG20240311124955.jpeg" style={{ display: "none" }} alt="" />
+      <img src="/placeholder.svg" style={{ display: "none" }} alt="" />
 
       <AnimatePresence>
         {interactionStep === "yes" && (
@@ -78,7 +78,7 @@ export default function Closing({ onPrev, onRestart }) {
               style={{
                 position: "absolute",
                 inset: 0,
-                backgroundImage: "url(/IMG20240311124955.jpeg)",
+                backgroundImage: "url(/placeholder.svg)",
                 backgroundSize: isMobile ? "contain" : "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
