@@ -42,6 +42,14 @@ You will need to edit the specific files in the `src/data/` folder:
 - **`src/data/openWhen.js`**: Customize the letters inside the `letters` array.
 - **`src/data/polaroids.js`**: Update the `polaroids` array with your photos and long captions.
 
+### 3. How to Add or Remove Pages (Optional)
+
+If you want to skip a specific page (for example, if you don't want the video note or the quiz), you can easily remove it!
+- Open **`src/App.jsx`**.
+- Find the `pageOrder` array at the top of the file.
+- Simply delete the name of the page you want to remove from the list (e.g., delete `'videonote',`). The app will automatically skip that page!
+- To disable the timer or the quiz, open **`src/data/config.js`** and change `enableTimer` or `enableQuiz` to `false`.
+
 *(Note: The intro text in `Splash.jsx` and the final dua in `Closing.jsx` are still located in `src/components/`)*
 
 ## 🚀 Running Locally
