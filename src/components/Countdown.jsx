@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { config } from '../data/config';
+import { useAppData } from '../context/AppDataContext';
 
 export default function Countdown({ onComplete }) {
+  const { data } = useAppData();
+  const config = data.config;
   const calculateTimeLeft = () => {
     const difference = +new Date(config.targetDate) - +new Date();
     let timeLeft = {};

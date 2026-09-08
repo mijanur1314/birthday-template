@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { config } from '../data/config';
+import { useAppData } from '../context/AppDataContext';
 import '../styles/quiz.css';
 
 export default function Quiz({ onComplete }) {
+  const { data } = useAppData();
+  const config = data.config;
   const [inputValue, setInputValue] = useState('');
   const [hasError, setHasError] = useState(false);
 

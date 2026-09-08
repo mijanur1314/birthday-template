@@ -1,9 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { polaroids } from '../data/polaroids';
+import { useAppData } from '../context/AppDataContext';
 
 export default function PolaroidWall({ onNext, onPrev }) {
+  const { data } = useAppData();
+  const polaroids = data.polaroids;
   const containerRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
   const [isReady, setIsReady] = useState(false);

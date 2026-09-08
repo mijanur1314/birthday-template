@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { letters } from '../data/openWhen';
+import { useAppData } from '../context/AppDataContext';
 
 export default function OpenWhen({ onNext, onPrev }) {
+  const { data } = useAppData();
+  const letters = data.openWhen;
   const [openedId, setOpenedId] = useState(null);
 
   return (

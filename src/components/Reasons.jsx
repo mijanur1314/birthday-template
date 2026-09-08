@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { playPaperRustle } from '../utils/sound';
 
-import { reasons } from '../data/reasons';
+import { useAppData } from '../context/AppDataContext';
 
 export default function Reasons({ onNext, onPrev }) {
+  const { data } = useAppData();
+  const reasons = data.reasons;
   const [flipped, setFlipped] = useState(Array(6).fill(false));
 
   const toggleFlip = (index) => {

@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
-
-import { paragraphs } from '../data/letter';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useAppData } from '../context/AppDataContext';
+import '../styles/storybook.css';
 
 export default function Letter({ onNext }) {
+  const { data } = useAppData();
+  const paragraphs = data.letter;
   const [typedText, setTypedText] = useState(['', '', '']);
   const [currentPara, setCurrentPara] = useState(0);
   const [showButton, setShowButton] = useState(false);

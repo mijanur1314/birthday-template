@@ -18,36 +18,29 @@ import Splash from './components/Splash';
 import Stardust from './components/Stardust';
 import Countdown from './components/Countdown';
 import Quiz from './components/Quiz';
+import SetupMode from './components/SetupMode';
+import { useAppData } from './context/AppDataContext';
 import { playChime } from './utils/sound';
-import { config } from './data/config';
-
-const pageOrder = [
-  'envelope',
-  'letter',
-  'story',
-  'reasons',
-  'promises',
-  'openwhen',
-  'polaroids',
-  'videonote',
-  'cake',
-  'closing'
-];
 
 const imagesToPreload = [
   "/placeholder.svg"
 ];
 
 export default function App() {
+  const { data, isSetupComplete, resetData } = useAppData();
+  
+  const config = data?.config;
+  const pageOrder = data?.pageOrder || [];
+
   const [showCountdown, setShowCountdown] = useState(() => {
     if (window.location.search.includes('dev=true')) return false;
     
-    if (!config.enableTimer) return false;
-    return (+new Date(config.targetDate) - +new Date()) > 0;
+    if (!config?.enableTimer) return false;
+    return (+new Date(config?.targetDate) - +new Date()) > 0;
   });
   const [showQuiz, setShowQuiz] = useState(() => {
     if (window.location.search.includes('dev=true')) return false;
-    return config.enableQuiz;
+    return config?.enableQuiz;
   });
   const [showSplash, setShowSplash] = useState(true);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
@@ -112,21 +105,21 @@ export default function App() {
       if (document.hidden) {
         document.title = "Come back 🥺";
       } else {
-        document.title = "Happy Birthday! 💖";
+        document.title = `Happy Birthday, ${data?.partnerName || ''} 💖`;
       }
     };
     
-    document.title = "Happy Birthday! 💖";
+    document.title = `Happy Birthday, ${data?.partnerName || ''} 💖`;
     document.addEventListener("visibilitychange", handleVisibilityChange);
     
     // Initialize browser history for the back button
-    window.history.replaceState({ step: 'envelope' }, '');
+    window.history.replaceState({ step: pageOrder[0] || 'envelope' }, '');
 
     const handlePopState = (event) => {
       if (event.state && event.state.step) {
         setCurrentStep(event.state.step);
       } else {
-        setCurrentStep('envelope');
+        setCurrentStep(pageOrder[0] || 'envelope');
       }
     };
     window.addEventListener('popstate', handlePopState);
@@ -175,7 +168,7 @@ export default function App() {
   };
 
   const restartApp = () => {
-    setCurrentStep('envelope');
+    setCurrentStep(pageOrder[0] || 'envelope');
     setCakeBlown(false);
     setLitCandles([true, true, true]);
     if (cakeAudioRef.current) {
@@ -185,6 +178,12 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  if (!data) return null;
+
+  if (!isSetupComplete) {
+    return <SetupMode />;
+  }
+
   return (
     <>
       {/* Invisible DOM preloader for heavy uncompressed images */}
@@ -193,6 +192,12 @@ export default function App() {
           <img key={src} src={src} alt="preload" decoding="sync" />
         ))}
       </div>
+
+      {/* Secret reset trigger corner */}
+      <div 
+        onClick={resetData}
+        style={{ position: 'fixed', bottom: 0, right: 0, width: '50px', height: '50px', zIndex: 99999 }}
+      />
 
       {/* Background effects constantly running */}
       <RosePetals />

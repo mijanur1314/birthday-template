@@ -3,9 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import { playPaperRustle } from '../utils/sound';
 
-import { storyPages } from '../data/storyPages';
+import { useAppData } from '../context/AppDataContext';
 
 export default function StoryBook({ onNext, onPrev }) {
+  const { data } = useAppData();
+  const storyPages = data.storyPages;
   const [index, setIndex] = useState(0);
 
   const next = () => {

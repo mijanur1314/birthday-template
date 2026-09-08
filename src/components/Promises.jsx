@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 
-import { promisesList } from '../data/promises';
+import { useAppData } from '../context/AppDataContext';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -19,6 +19,8 @@ const itemVariants = {
 };
 
 export default function Promises({ onNext, onPrev }) {
+  const { data } = useAppData();
+  const promisesList = data.promises;
   return (
     <div className="promises-container glass-panel">
       <div className="section-eyebrow">A Look Ahead</div>
