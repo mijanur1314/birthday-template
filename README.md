@@ -58,12 +58,22 @@ This project is built with React and Vite.
    ```
 3. Open `http://localhost:5173` in your browser.
 
-## 🌍 Deployment
+## 🌍 Building and Deploying
 
-Since this is a standard Vite React app, deployment is incredibly easy and free.
+You can share this gift as a web link OR as a downloadable Android App (APK)!
 
-**Recommended: Vercel**
+### Option 1: Generate an Android App (APK) for Free!
+You don't need Android Studio or any coding experience to turn this into an app. 
 
+1. **Fork** this repository to your own GitHub account.
+2. Customize the photos and text in your forked repository.
+3. Go to the **Actions** tab in your GitHub repository.
+4. Click on the **Build Android APK** workflow on the left, then click **Run workflow**.
+5. Wait a few minutes for the build to finish. Once it has a green checkmark, click on it, scroll down to the **Artifacts** section, and download your `birthday-app-apk` file!
+6. Send the APK to your partner's phone to install.
+
+### Option 2: Deploy as a Website (Vercel)
+If you prefer to just send a link:
 1. Push your customized code to your own GitHub repository.
 2. Go to [Vercel](https://vercel.com) and log in.
 3. Click **Add New Project**, select your repository, and click **Deploy**.
