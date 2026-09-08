@@ -1,0 +1,28 @@
+/* Cake component styles */
+.cake-wrap {
+  position: relative;
+  margin-top: 1rem;
+}
+.cake-hint {
+  font-size: 0.85rem;
+  color: var(--magenta);
+  opacity: 0.85;
+  margin-top: 0.6rem;
+}
+svg.candle-flame {
+  cursor: pointer;
+}
+
+#wish-msg {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  color: var(--magenta);
+  font-size: 1.4rem;
+  min-height: 2rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  text-align: center;
+}
+#wish-msg.show {
+  opacity: 1;
+}
