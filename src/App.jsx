@@ -52,8 +52,6 @@ export default function App() {
   const bgmAudioRef = useRef(null);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
-  const voiceNoteAudioRef = useRef(null);
-
   useEffect(() => {
     cakeAudioRef.current = new Audio('/birthday_tune.mp3');
     cakeAudioRef.current.volume = 0.8;
@@ -61,8 +59,6 @@ export default function App() {
     bgmAudioRef.current = new Audio('/bgm.mp3');
     bgmAudioRef.current.loop = true;
     bgmAudioRef.current.volume = 0.4;
-
-    voiceNoteAudioRef.current = new Audio('/voicerecording.mpeg');
   }, []);
 
   const toggleMusic = () => {
@@ -149,19 +145,6 @@ export default function App() {
   };
 
   const handleEnvelopeOpen = () => {
-    if (bgmAudioRef.current) {
-      bgmAudioRef.current.volume = 0.05;
-    }
-    
-    if (voiceNoteAudioRef.current) {
-      voiceNoteAudioRef.current.play().catch(e => console.log("voicenote missing", e));
-      
-      voiceNoteAudioRef.current.onended = () => {
-        if (bgmAudioRef.current) {
-          bgmAudioRef.current.volume = 0.4;
-        }
-      };
-    }
     setTimeout(() => {
       goToNextStep();
     }, 2400);

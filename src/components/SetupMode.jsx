@@ -178,6 +178,55 @@ export default function SetupMode() {
                 />
               </div>
             </div>
+
+            <div style={{ background: '#fdf2f8', padding: '1.5rem', borderRadius: '12px', borderLeft: '4px solid var(--magenta)', marginTop: '2rem' }}>
+              <h3 style={{ color: '#831843', marginTop: 0, marginBottom: '1rem', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                🔒 Password Lock Screen
+              </h3>
+              
+              <label className="setup-checkbox-item" style={{ marginBottom: '1rem' }}>
+                <input 
+                  type="checkbox" 
+                  checked={formData.config?.enableQuiz} 
+                  onChange={(e) => setFormData({
+                    ...formData, 
+                    config: { ...formData.config, enableQuiz: e.target.checked }
+                  })}
+                />
+                <span style={{ fontWeight: 'bold' }}>Enable Password Lock</span>
+              </label>
+
+              {formData.config?.enableQuiz && (
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1rem' }}>
+                  <div className="setup-input-group" style={{ flex: '1 1 250px', marginBottom: 0 }}>
+                    <label>Security Question / Hint</label>
+                    <input 
+                      type="text" 
+                      className="setup-input"
+                      value={formData.config?.quizQuestion || ""} 
+                      onChange={e => setFormData({
+                        ...formData, 
+                        config: { ...formData.config, quizQuestion: e.target.value }
+                      })}
+                      placeholder="e.g. Where did we first meet?"
+                    />
+                  </div>
+                  <div className="setup-input-group" style={{ flex: '1 1 200px', marginBottom: 0 }}>
+                    <label>Secret Password</label>
+                    <input 
+                      type="text" 
+                      className="setup-input"
+                      value={formData.config?.quizSecretAnswer || ""} 
+                      onChange={e => setFormData({
+                        ...formData, 
+                        config: { ...formData.config, quizSecretAnswer: e.target.value }
+                      })}
+                      placeholder="e.g. starbucks"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
             
             <h3 style={{ marginTop: '2.5rem' }}>Enable or Disable Pages</h3>
             <p style={{ marginBottom: '1.5rem', color: '#666' }}>Uncheck any pages you don't want to include in the final gift.</p>
