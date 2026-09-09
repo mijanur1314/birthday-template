@@ -22,13 +22,17 @@ export default function SetupMode() {
   };
 
   const handleExport = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(formData));
+    const jsonString = JSON.stringify(formData);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    
     const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("href", url);
     downloadAnchorNode.setAttribute("download", "birthday_gift.json");
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
+    URL.revokeObjectURL(url);
   };
 
   const fileInputRef = useRef(null);
@@ -41,8 +45,7 @@ export default function SetupMode() {
         try {
           const importedData = JSON.parse(e.target.result);
           if(importedData && importedData.pageOrder) {
-            setFormData(importedData);
-            alert("Gift file loaded successfully! You can now review it or click Save & Lock.");
+            saveData(importedData);
           } else {
             alert("Invalid gift file format!");
           }
