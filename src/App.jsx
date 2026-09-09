@@ -32,16 +32,20 @@ export default function App() {
   const config = data?.config;
   const pageOrder = data?.pageOrder || [];
 
-  const [showCountdown, setShowCountdown] = useState(() => {
-    if (window.location.search.includes('dev=true')) return false;
-    
-    if (!config?.enableTimer) return false;
-    return (+new Date(config?.targetDate) - +new Date()) > 0;
-  });
-  const [showQuiz, setShowQuiz] = useState(() => {
-    if (window.location.search.includes('dev=true')) return false;
-    return config?.enableQuiz;
-  });
+  const [showCountdown, setShowCountdown] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
+
+  useEffect(() => {
+    if (isSetupComplete && config) {
+      if (window.location.search.includes('dev=true')) {
+        setShowCountdown(false);
+        setShowQuiz(false);
+        return;
+      }
+      setShowCountdown(config.enableTimer && (+new Date(config.targetDate) - +new Date()) > 0);
+      setShowQuiz(config.enableQuiz);
+    }
+  }, [isSetupComplete, config]);
   const [showSplash, setShowSplash] = useState(true);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
   const [cakeBlown, setCakeBlown] = useState(false);
