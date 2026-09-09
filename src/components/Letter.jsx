@@ -5,8 +5,8 @@ import '../styles/storybook.css';
 
 export default function Letter({ onNext }) {
   const { data } = useAppData();
-  const paragraphs = data.letter;
-  const [typedText, setTypedText] = useState(['', '', '']);
+  const paragraphs = data.letter || [];
+  const [typedText, setTypedText] = useState(paragraphs.map(() => ''));
   const [currentPara, setCurrentPara] = useState(0);
   const [showButton, setShowButton] = useState(false);
 
@@ -49,7 +49,7 @@ export default function Letter({ onNext }) {
   return (
     <div className="flex-col flex-center" style={{ gap: '2rem', maxWidth: '640px' }}>
       <div className="letter-card" onClick={skipTyping} style={{ cursor: currentPara < paragraphs.length ? 'pointer' : 'default' }}>
-        <div className="to-line">My dearest Nur,</div>
+        <div className="to-line">My dearest {data?.partnerName || 'Love'},</div>
         <div className="letter-body">
           {typedText.map((text, idx) => (
             <p key={idx}>

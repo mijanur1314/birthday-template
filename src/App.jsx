@@ -61,6 +61,14 @@ export default function App() {
     bgmAudioRef.current.volume = 0.4;
   }, []);
 
+  useEffect(() => {
+    if (!isSetupComplete && bgmAudioRef.current) {
+      bgmAudioRef.current.pause();
+      bgmAudioRef.current.currentTime = 0;
+      setIsMusicPlaying(false);
+    }
+  }, [isSetupComplete]);
+
   const toggleMusic = () => {
     if (!bgmAudioRef.current) return;
     if (isMusicPlaying) {
