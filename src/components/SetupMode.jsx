@@ -145,7 +145,7 @@ export default function SetupMode() {
               </button>
               <input 
                 type="file" 
-                accept=".json" 
+                accept=".json,application/json,text/plain,*/*" 
                 ref={fileInputRef} 
                 onChange={handleImport} 
                 style={{ display: 'none' }} 
