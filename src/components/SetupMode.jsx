@@ -4,7 +4,7 @@ import { Camera, Check, Download, Upload } from 'lucide-react';
 import '../styles/setup.css';
 
 export default function SetupMode() {
-  const { data, updateData, completeSetup } = useAppData();
+  const { data, saveData } = useAppData();
   const [activeTab, setActiveTab] = useState('instructions');
   const [formData, setFormData] = useState(data || {
     partnerName: "",
@@ -18,8 +18,7 @@ export default function SetupMode() {
   });
 
   const handleSave = () => {
-    updateData(formData);
-    completeSetup();
+    saveData(formData);
   };
 
   const handleExport = () => {
