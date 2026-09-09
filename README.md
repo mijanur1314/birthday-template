@@ -1,91 +1,62 @@
-# 💝 Romantic Interactive Birthday Web App
+# 💝 Romantic Interactive Birthday App
 
-A highly interactive, cinematic, and deeply personalized React web application designed to be the ultimate digital birthday gift for your partner.
+A highly interactive, cinematic, and deeply personalized React web application designed to be the ultimate digital birthday gift. 
 
-Unlike a standard webpage, this app mimics the feeling of physical gifts through microphone interactions, beautiful cinematic animations, interactive polaroids, hidden letters, and elegant glassmorphism UI.
+This repository has been fully upgraded with an **In-App Setup Mode**. This means you (or your followers) no longer need to edit any code to customize the app! You can simply download the APK, install it on your phone, and a beautiful UI will ask you for your partner's name, custom photos, and love letters.
 
-## ✨ Features
+## ✨ How to Use the App (Instructions)
 
-- **Cinematic Splash Screen:** A beautiful intro with a glowing, beating heart that transitions into the app with a personalized message.
-- **Global Background Music:** A floating music toggle that plays a continuous romantic track (`bgm.mp3`) across the entire experience.
-- **Physical Envelope:** A glassmorphism envelope that opens with a physically accurate animation.
-- **Live Typewriter Letter:** Your personalized love letter slowly types itself out on the screen.
-- **Interactive Storybook:** A responsive 3D-styled photo album that flips through your favorite memories, complete with beautiful placeholder dates.
-- **Flip Cards (Reasons):** Interactive cards revealing all the reasons you love her.
-- **Promises:** Beautifully styled cards detailing the romantic promises you make to her.
-- **"Open When..." Letters:** A charming grid of mini-envelopes that, when clicked, slide open to reveal secret glassmorphism letters (e.g., "Open when you miss me").
-- **Clickable Polaroid Wall:** A beautiful scattered wall of polaroid photos. Clicking a photo smoothly zooms it to the center of the screen, dimming the background and revealing a long, private caption underneath.
-- **Personal Video Message:** A dedicated page for her to play a special video message (`message.mp4`) from you, seamlessly pausing the background music.
-- **Interactive Blow-Out Cake:** A beautifully rendered 3D vector cake. By blowing into the device's **microphone**, she physically blows out the digital candles!
-- **Handwritten Bangla Dua:** After answering the final question ("Do you love me?"), a deeply personal handwritten-style Bangla prayer fades in on a softly glowing white note card.
+When you first open the app, you will be greeted with the **Setup Mode**. This is where you configure the gift before giving it to your partner. 
 
-## 🛠️ How to Customize for Your Partner
+Here is what you can do in each section:
 
-This repository is designed to be easily customizable. Clone it and replace the assets and text with your own!
+### 1. General & Pages Tab
+- **Partner's Name:** Type your partner's name here. It will automatically update all the text in the app (like the intro screen, the envelope, and the final message).
+- **Cake Age:** Type the age they are turning (e.g. 23). The 3D cake will magically generate the exact candles you typed!
+- **Enable/Disable Pages:** Don't want to use the Quiz? Don't have a video message to upload? No problem! Just uncheck the boxes next to the pages you don't want, and the app will skip them entirely.
 
-### 1. Change the Photos and Audio
+### 2. Letter Tab
+- Write a personal, heartfelt love letter. When your partner reaches this page, the app will slowly type your letter out on the screen like a typewriter.
 
-- Go to the `public/` folder.
-- Add `bgm.mp3` for the persistent background music.
-- Replace `birthday_tune.mp3` with the song you want to play when the cake candles are blown out.
-- Add `message.mp4` for the personal video note.
-- Add your favorite couple photos into the `public/` folder. _(Note: Compress large files if deploying to the web!)_
+### 3. Photos Tab
+- This controls the "Storybook" and the "Polaroid Wall".
+- Tap the empty photo boxes to open your phone's camera roll and select your favorite couple pictures.
+- You can write short captions for the storybook, and long emotional captions for the Polaroids!
 
-### 2. Update the Text
+### 4. Reasons Tab
+- Upload tiny square photos and write short sentences explaining why you love them. These will appear as beautiful interactive flip-cards in the app.
 
-You will need to edit the specific files in the `src/data/` folder:
+---
 
-- **`src/data/letter.js`**: Update the `paragraphs` array with your heartfelt letter.
-- **`src/data/storyPages.js`**: Update the `storyPages` array to point to your new photos and write custom captions/dates.
-- **`src/data/reasons.js`**: Update the `reasons` array with your personal reasons.
-- **`src/data/promises.js`**: Update the `promisesList` array.
-- **`src/data/openWhen.js`**: Customize the letters inside the `letters` array.
-- **`src/data/polaroids.js`**: Update the `polaroids` array with your photos and long captions.
+## 🔒 Saving and Locking the Gift
 
-### 3. How to Add or Remove Pages (Optional)
+Once you have filled out all your photos and text, scroll to the bottom of the Setup screen and click the pink **"Save & Lock Gift"** button.
 
-If you want to skip a specific page (for example, if you don't want the video note or the quiz), you can easily remove it!
-- Open **`src/App.jsx`**.
-- Find the `pageOrder` array at the top of the file.
-- Simply delete the name of the page you want to remove from the list (e.g., delete `'videonote',`). The app will automatically skip that page!
-- To disable the timer or the quiz, open **`src/data/config.js`** and change `enableTimer` or `enableQuiz` to `false`.
+**What happens next?**
+1. The Setup Mode disappears forever so your partner can't see it.
+2. The app reloads into the actual cinematic Gift Experience, featuring your photos and text!
+3. You can now hand your phone to your partner to let them experience the gift.
 
-*(Note: The intro text in `Splash.jsx` and the final dua in `Closing.jsx` are still located in `src/components/`)*
+### ⚠️ Oops! I made a mistake, how do I change a photo? (Secret Reset Button)
+If you already clicked "Save & Lock Gift" but you need to go back and change a spelling mistake or swap a photo, **do not panic!**
+- There is a **secret invisible button** in the app.
+- Simply tap the **absolute bottom-right corner** of your phone screen.
+- This will instantly reset the app and bring the Setup Mode back!
 
-## 🚀 Running Locally
+---
 
-This project is built with React and Vite.
+## 🚀 How to Share with Your Followers
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Start the development server:
-   ```bash
-   npm run dev
-   ```
-3. Open `http://localhost:5173` in your browser.
+If you are a creator sharing this with your followers, they do not need to use GitHub. 
 
-## 🌍 Building and Deploying
+**The absolute easiest way to share this app:**
+1. Go to your GitHub **Actions** tab.
+2. Click on the most recent successful build, scroll down to the **Artifacts** section, and download the `birthday-app-apk` file.
+3. Unzip the file to get the `.apk`.
+4. Upload that `.apk` to your **Google Drive** and set the sharing permissions to "Anyone with the link can view".
+5. Put the Google Drive link in your Instagram or TikTok bio!
 
-You can share this gift as a web link OR as a downloadable Android App (APK)!
-
-### Option 1: Generate an Android App (APK) for Free!
-You don't need Android Studio or any coding experience to turn this into an app. 
-
-1. **Fork** this repository to your own GitHub account.
-2. Customize the photos and text in your forked repository.
-3. Go to the **Actions** tab in your GitHub repository.
-4. Click on the **Build Android APK** workflow on the left, then click **Run workflow**.
-5. Wait a few minutes for the build to finish. Once it has a green checkmark, click on it, scroll down to the **Artifacts** section, and download your `birthday-app-apk` file!
-6. Send the APK to your partner's phone to install.
-
-### Option 2: Deploy as a Website (Vercel)
-If you prefer to just send a link:
-1. Push your customized code to your own GitHub repository.
-2. Go to [Vercel](https://vercel.com) and log in.
-3. Click **Add New Project**, select your repository, and click **Deploy**.
-4. Send the link to your partner!
+Now, your followers can just click the link in your bio, download the app directly to their Android phone, and use the **Setup Mode** to build a gift for their own partners!
 
 ---
 
