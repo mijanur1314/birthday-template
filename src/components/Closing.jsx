@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import confetti from "canvas-confetti";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAppData } from "../context/AppDataContext";
 
 export default function Closing({ onPrev, onRestart }) {
+  const { data } = useAppData();
   const [showButton, setShowButton] = useState(false);
   const [interactionStep, setInteractionStep] = useState("initial");
   const [noPosition, setNoPosition] = useState({ x: 0, y: 0 });
@@ -94,7 +96,7 @@ export default function Closing({ onPrev, onRestart }) {
 
       {interactionStep === "initial" && (
         <>
-          <div className="closing-title">Happy Birthday, Nur</div>
+          <div className="closing-title">Happy Birthday, {data?.partnerName || 'Love'}</div>
           <p className="closing-sub serif-italic">
             September 8th belongs to you. I hope today is as lovely and as loved
             as you make everyone around you feel.
@@ -207,17 +209,13 @@ export default function Closing({ onPrev, onRestart }) {
             }}
           >
             <p style={{ fontFamily: "serif", fontSize: "1.2rem", lineHeight: "1.8", color: "#333", marginBottom: "1rem" }}>
-              আল্লাহ যেন তোমার জীবনটা সবসময় শান্তি, সুখ আর ভালোবাসায় ভরে রাখেন।<br/>
-              তোমার সব ভালো স্বপ্ন যেন একদিন সত্যি হয়।<br/>
-              তুমি যেন সবসময় হাসিখুশি থাকো, সুস্থ থাকো, আর আমার জীবনে এভাবেই থেকো।
-            </p>
-            <p style={{ fontFamily: "serif", fontSize: "1.2rem", lineHeight: "1.8", color: "#333", marginBottom: "1rem" }}>
-              আমি আল্লাহর কাছে সবসময় তোমাকে চাই,<br/>
-              আমার দুনিয়া আর আখিরাতের সঙ্গী হিসেবে।
+              Thank you for everything that you do.<br/>
+              I hope your special day is filled with joy, laughter, and unforgettable moments.<br/>
+              You mean the world to me, and I am so grateful to have you in my life.
             </p>
             <p style={{ fontFamily: "serif", fontSize: "1.3rem", fontWeight: "bold", color: "var(--magenta)", marginTop: "1.5rem" }}>
-              শুভ জন্মদিন, আমার নুর 👸🏻💝💚<br/>
-              আমি তোমাকে অনেক অনেক ভালোবাসি গো সোনা 😚🫂
+              Happy Birthday, {data?.partnerName || 'My Love'} 💝<br/>
+              I love you so much! 😚
             </p>
           </motion.div>
 
