@@ -27,7 +27,7 @@ const imagesToPreload = [
 ];
 
 export default function App() {
-  const { data, isSetupComplete, resetData } = useAppData();
+  const { data, isSetupComplete, editData } = useAppData();
   
   const config = data?.config;
   const pageOrder = data?.pageOrder || [];
@@ -178,7 +178,7 @@ export default function App() {
 
       {/* Secret reset trigger corner */}
       <div 
-        onClick={resetData}
+        onClick={editData}
         style={{ position: 'fixed', bottom: 0, right: 0, width: '50px', height: '50px', zIndex: 99999 }}
       />
 

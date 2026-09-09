@@ -75,6 +75,11 @@ export function AppDataProvider({ children }) {
     }
   };
 
+  const editData = async () => {
+    await localforage.setItem('isSetupComplete', false);
+    setIsSetupComplete(false);
+  };
+
   const resetData = async () => {
     await localforage.clear();
     setData(defaultData);
@@ -84,7 +89,7 @@ export function AppDataProvider({ children }) {
   if (loading) return null; // or a tiny spinner
 
   return (
-    <AppDataContext.Provider value={{ data, saveData, resetData, isSetupComplete }}>
+    <AppDataContext.Provider value={{ data, saveData, editData, resetData, isSetupComplete }}>
       {children}
     </AppDataContext.Provider>
   );
