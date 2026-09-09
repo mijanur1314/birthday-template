@@ -98,7 +98,7 @@ export default function Closing({ onPrev, onRestart }) {
         <>
           <div className="closing-title">Happy Birthday, {data?.partnerName || 'Love'}</div>
           <p className="closing-sub serif-italic">
-            September 8th belongs to you. I hope today is as lovely and as loved
+            {data?.birthdayDate ? `${data.birthdayDate} belongs to you.` : "Today belongs to you."} I hope your special day is as lovely and as loved
             as you make everyone around you feel.
           </p>
           <div className="footer-note" style={{ marginBottom: "2rem" }}>

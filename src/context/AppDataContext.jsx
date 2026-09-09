@@ -27,6 +27,7 @@ export function AppDataProvider({ children }) {
     storyPages: defaultStoryPages,
     partnerName: "",
     cakeAge: "",
+    birthdayDate: "",
     pageOrder: [
       'envelope',
       'letter',

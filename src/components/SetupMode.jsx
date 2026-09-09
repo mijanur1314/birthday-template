@@ -94,7 +94,8 @@ export default function SetupMode() {
         <button className={activeTab === 'instructions' ? 'active-tab' : ''} onClick={() => setActiveTab('instructions')}>How To Use 📖</button>
         <button className={activeTab === 'general' ? 'active-tab' : ''} onClick={() => setActiveTab('general')}>General & Pages</button>
         <button className={activeTab === 'letter' ? 'active-tab' : ''} onClick={() => setActiveTab('letter')}>Letter</button>
-        <button className={activeTab === 'polaroids' ? 'active-tab' : ''} onClick={() => setActiveTab('polaroids')}>Photos</button>
+        <button className={activeTab === 'story' ? 'active-tab' : ''} onClick={() => setActiveTab('story')}>Storybook</button>
+        <button className={activeTab === 'polaroids' ? 'active-tab' : ''} onClick={() => setActiveTab('polaroids')}>Polaroids</button>
         <button className={activeTab === 'reasons' ? 'active-tab' : ''} onClick={() => setActiveTab('reasons')}>Reasons</button>
       </div>
 
@@ -178,6 +179,16 @@ export default function SetupMode() {
                   value={formData.cakeAge || ""} 
                   onChange={e => setFormData({...formData, cakeAge: e.target.value.replace(/\D/g, '')})}
                   placeholder="e.g. 23"
+                />
+              </div>
+              <div className="setup-input-group" style={{ flex: '1 1 150px' }}>
+                <label>Birthday Date</label>
+                <input 
+                  type="text" 
+                  className="setup-input"
+                  value={formData.birthdayDate || ""} 
+                  onChange={e => setFormData({...formData, birthdayDate: e.target.value})}
+                  placeholder="e.g. Sept 8th"
                 />
               </div>
             </div>
@@ -266,8 +277,19 @@ export default function SetupMode() {
             <h2>Your Love Letter</h2>
             <p style={{ marginBottom: '1.5rem', color: '#666' }}>This letter will magically type itself out on the screen like a typewriter.</p>
             {formData.letter && formData.letter.map((para, i) => (
-              <div className="setup-input-group" key={i}>
-                <label>Paragraph {i + 1}</label>
+              <div className="setup-input-group" key={i} style={{ position: 'relative' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
+                  <label style={{ margin: 0 }}>Paragraph {i + 1}</label>
+                  <button 
+                    onClick={() => {
+                      const newLetter = formData.letter.filter((_, idx) => idx !== i);
+                      setFormData({...formData, letter: newLetter});
+                    }}
+                    style={{ background: 'none', border: 'none', color: '#f43f5e', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold' }}
+                  >
+                    Remove
+                  </button>
+                </div>
                 <textarea 
                   className="setup-input setup-textarea"
                   value={para}
@@ -279,6 +301,77 @@ export default function SetupMode() {
                 />
               </div>
             ))}
+            <button 
+              onClick={() => setFormData({...formData, letter: [...(formData.letter || []), ""]})}
+              style={{ background: '#f8fafc', border: '2px dashed #cbd5e1', color: '#475569', padding: '1rem', width: '100%', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold', marginTop: '1rem' }}
+            >
+              + Add Paragraph
+            </button>
+          </div>
+        )}
+
+        {activeTab === 'story' && (
+          <div>
+            <h2>Storybook Pages</h2>
+            <p style={{ marginBottom: '1.5rem', color: '#666' }}>Upload photos and write the story of your relationship. These will appear as a 3D book!</p>
+            {formData.storyPages && formData.storyPages.map((item, i) => (
+              <div key={item.id || i} className="setup-photo-item" style={{ position: 'relative' }}>
+                <button 
+                  onClick={() => {
+                    const newStory = formData.storyPages.filter((_, idx) => idx !== i);
+                    setFormData({...formData, storyPages: newStory});
+                  }}
+                  style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'none', border: 'none', color: '#f43f5e', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold' }}
+                >
+                  Remove
+                </button>
+                <div className="setup-photo-upload" style={{ width: '140px', height: '180px' }}>
+                  {item.image && item.image !== '/placeholder.svg' ? (
+                    <>
+                      <img src={item.image} alt="" />
+                      <div className="setup-photo-overlay"><Camera /></div>
+                    </>
+                  ) : (
+                    <div style={{ color: '#aaa', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <Camera size={32} style={{ marginBottom: '0.5rem' }} />
+                      <span style={{ fontSize: '0.8rem' }}>Upload</span>
+                    </div>
+                  )}
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={e => handleImageUpload(e, 'storyPages', i)}
+                    style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', zIndex: 10 }}
+                  />
+                </div>
+                
+                <div style={{ flex: 1, width: '100%', marginTop: '1.5rem' }}>
+                  <div className="setup-input-group" style={{ marginBottom: '0' }}>
+                    <label>Page Text</label>
+                    <textarea 
+                      className="setup-input"
+                      style={{ minHeight: '100px', resize: 'vertical' }}
+                      value={item.text} 
+                      onChange={e => {
+                        const newData = [...formData.storyPages];
+                        newData[i].text = e.target.value;
+                        setFormData({...formData, storyPages: newData});
+                      }}
+                      placeholder="Write the story for this page..."
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+            <button 
+              onClick={() => {
+                const newPage = { id: Date.now(), text: "", image: "/placeholder.svg" };
+                setFormData({...formData, storyPages: [...(formData.storyPages || []), newPage]});
+              }}
+              style={{ background: '#f8fafc', border: '2px dashed #cbd5e1', color: '#475569', padding: '1rem', width: '100%', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold', marginTop: '1rem' }}
+            >
+              + Add Story Page
+            </button>
           </div>
         )}
 
@@ -287,7 +380,16 @@ export default function SetupMode() {
             <h2>Polaroid Photos & Captions</h2>
             <p style={{ marginBottom: '1.5rem', color: '#666' }}>Upload photos for the interactive polaroid wall. Click a photo box to select from your phone.</p>
             {formData.polaroids.map((item, i) => (
-              <div key={i} className="setup-photo-item">
+              <div key={item.id || i} className="setup-photo-item" style={{ position: 'relative' }}>
+                <button 
+                  onClick={() => {
+                    const newData = formData.polaroids.filter((_, idx) => idx !== i);
+                    setFormData({...formData, polaroids: newData});
+                  }}
+                  style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'none', border: 'none', color: '#f43f5e', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold' }}
+                >
+                  Remove
+                </button>
                 <div className="setup-photo-upload">
                   {item.image && item.image !== '/placeholder.svg' ? (
                     <>
@@ -308,7 +410,7 @@ export default function SetupMode() {
                   />
                 </div>
                 
-                <div style={{ flex: 1, width: '100%' }}>
+                <div style={{ flex: 1, width: '100%', marginTop: '1.5rem' }}>
                   <div className="setup-input-group" style={{ marginBottom: '1rem' }}>
                     <label>Short Caption (Written on Polaroid)</label>
                     <input 
@@ -340,6 +442,23 @@ export default function SetupMode() {
                 </div>
               </div>
             ))}
+            <button 
+              onClick={() => {
+                const newPolaroid = { 
+                  id: Date.now(), 
+                  image: "/placeholder.svg", 
+                  caption: "", 
+                  longCaption: "",
+                  x: Math.random() * 300 - 150,
+                  y: Math.random() * 300 - 150,
+                  rotate: Math.random() * 40 - 20
+                };
+                setFormData({...formData, polaroids: [...(formData.polaroids || []), newPolaroid]});
+              }}
+              style={{ background: '#f8fafc', border: '2px dashed #cbd5e1', color: '#475569', padding: '1rem', width: '100%', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold', marginTop: '1rem' }}
+            >
+              + Add Polaroid
+            </button>
           </div>
         )}
 
@@ -348,7 +467,16 @@ export default function SetupMode() {
             <h2>Reasons I Love You</h2>
             <p style={{ marginBottom: '1.5rem', color: '#666' }}>These will appear as beautiful interactive flip-cards.</p>
             {formData.reasons.map((item, i) => (
-              <div key={i} className="setup-photo-item">
+              <div key={item.id || i} className="setup-photo-item" style={{ position: 'relative' }}>
+                <button 
+                  onClick={() => {
+                    const newData = formData.reasons.filter((_, idx) => idx !== i);
+                    setFormData({...formData, reasons: newData});
+                  }}
+                  style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'none', border: 'none', color: '#f43f5e', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold' }}
+                >
+                  Remove
+                </button>
                 <div className="setup-photo-upload" style={{ width: '100px', height: '100px' }}>
                   {item.image && item.image !== '/placeholder.svg' ? (
                     <>
@@ -369,7 +497,7 @@ export default function SetupMode() {
                   />
                 </div>
                 
-                <div className="setup-input-group" style={{ flex: 1, margin: 0, width: '100%' }}>
+                <div className="setup-input-group" style={{ flex: 1, margin: 0, width: '100%', marginTop: '1.5rem' }}>
                   <label>Reason #{i + 1}</label>
                   <textarea 
                     className="setup-input"
@@ -385,6 +513,15 @@ export default function SetupMode() {
                 </div>
               </div>
             ))}
+            <button 
+              onClick={() => {
+                const newReason = { id: Date.now(), text: "", image: "/placeholder.svg" };
+                setFormData({...formData, reasons: [...(formData.reasons || []), newReason]});
+              }}
+              style={{ background: '#f8fafc', border: '2px dashed #cbd5e1', color: '#475569', padding: '1rem', width: '100%', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold', marginTop: '1rem' }}
+            >
+              + Add Reason
+            </button>
           </div>
         )}
 
