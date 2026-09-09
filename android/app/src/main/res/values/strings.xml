@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Birthday Template</string>
-    <string name="title_activity_main">Birthday Template</string>
+    <string name="app_name">Birthday</string>
+    <string name="title_activity_main">Birthday</string>
     <string name="package_name">com.birthday.template</string>
     <string name="custom_url_scheme">com.birthday.template</string>
 </resources>
