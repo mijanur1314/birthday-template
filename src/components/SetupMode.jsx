@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useAppData } from '../context/AppDataContext';
-import { Camera, Check, Settings, EyeOff } from 'lucide-react';
+import { Camera, Check, Download, Upload } from 'lucide-react';
 import '../styles/setup.css';
 
 export default function SetupMode() {
@@ -20,6 +20,39 @@ export default function SetupMode() {
   const handleSave = () => {
     updateData(formData);
     completeSetup();
+  };
+
+  const handleExport = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(formData));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "birthday_gift.json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  };
+
+  const fileInputRef = useRef(null);
+
+  const handleImport = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const importedData = JSON.parse(e.target.result);
+          if(importedData && importedData.pageOrder) {
+            setFormData(importedData);
+            alert("Gift file loaded successfully! You can now review it or click Save & Lock.");
+          } else {
+            alert("Invalid gift file format!");
+          }
+        } catch (err) {
+          alert("Error reading the gift file.");
+        }
+      };
+      reader.readAsText(file);
+    }
   };
 
   const handleImageUpload = (e, section, index) => {
@@ -74,6 +107,24 @@ export default function SetupMode() {
             <p style={{ marginBottom: '1.5rem', fontSize: '1.1rem' }}>
               You are currently in <strong>Setup Mode</strong>. This screen will only be seen by YOU. Once you fill everything out and save it, this screen will disappear and the app will turn into a beautiful cinematic gift for your partner.
             </p>
+
+            <div style={{ background: '#f0f4ff', padding: '1.5rem', borderRadius: '12px', borderLeft: '4px solid #3b82f6', marginBottom: '2rem' }}>
+              <h3 style={{ color: '#1d4ed8', marginTop: 0, marginBottom: '0.5rem', fontSize: '1.2rem' }}>📥 Did someone send you a Gift File?</h3>
+              <p style={{ marginBottom: '1rem', color: '#1e3a8a' }}>If your partner sent you a <b>birthday_gift.json</b> file, upload it here to unlock your gift!</p>
+              <button 
+                onClick={() => fileInputRef.current.click()}
+                style={{ background: '#3b82f6', color: 'white', border: 'none', padding: '0.8rem 1.5rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+              >
+                <Upload size={18} /> Load Gift File
+              </button>
+              <input 
+                type="file" 
+                accept=".json" 
+                ref={fileInputRef} 
+                onChange={handleImport} 
+                style={{ display: 'none' }} 
+              />
+            </div>
             
             <h3>🛠️ How to Customize</h3>
             <ul className="setup-instruction-list">
@@ -122,16 +173,32 @@ export default function SetupMode() {
               </div>
             </div>
             
-            <h3 style={{ marginTop: '2rem' }}>Enable or Disable Pages</h3>
+            <h3 style={{ marginTop: '2.5rem' }}>Enable or Disable Pages</h3>
+            <p style={{ marginBottom: '1.5rem', color: '#666' }}>Uncheck any pages you don't want to include in the final gift.</p>
             <div className="setup-checkbox-list">
-              {['envelope', 'letter', 'story', 'reasons', 'promises', 'openwhen', 'polaroids', 'videonote', 'cake', 'closing'].map(page => (
-                <label key={page} className="setup-checkbox-item">
+              {[
+                { id: 'envelope', name: 'Envelope', desc: 'A beautiful clickable envelope that opens.' },
+                { id: 'letter', name: 'Letter', desc: 'A typewriter animation of your love letter.' },
+                { id: 'story', name: 'Story', desc: 'A 3D interactive photo album book.' },
+                { id: 'reasons', name: 'Reasons', desc: 'Flip-cards showing why you love them.' },
+                { id: 'promises', name: 'Promises', desc: 'Beautiful cards for your romantic promises.' },
+                { id: 'openwhen', name: 'Open When', desc: 'Mini envelopes to open in the future.' },
+                { id: 'polaroids', name: 'Polaroids', desc: 'A scattered wall of clickable photos.' },
+                { id: 'videonote', name: 'Video Note', desc: 'A page to play a personal video message.' },
+                { id: 'cake', name: 'Cake', desc: 'A 3D cake they can blow out using the mic.' },
+                { id: 'closing', name: 'Closing', desc: 'The final question and birthday wish.' }
+              ].map(page => (
+                <label key={page.id} className="setup-checkbox-item" style={{ alignItems: 'flex-start', padding: '0.8rem' }}>
                   <input 
                     type="checkbox" 
-                    checked={formData.pageOrder.includes(page)} 
-                    onChange={() => togglePage(page)}
+                    checked={formData.pageOrder.includes(page.id)} 
+                    onChange={() => togglePage(page.id)}
+                    style={{ marginTop: '4px' }}
                   />
-                  <span>{page} Page</span>
+                  <div>
+                    <span style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.2rem' }}>{page.name}</span>
+                    <span style={{ display: 'block', fontSize: '0.85rem', color: '#666', lineHeight: '1.3' }}>{page.desc}</span>
+                  </div>
                 </label>
               ))}
             </div>
@@ -265,9 +332,15 @@ export default function SetupMode() {
           </div>
         )}
 
-        <button className="save-lock-btn" onClick={handleSave}>
-          <Check size={24} /> Save & Lock Gift App
-        </button>
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '3rem' }}>
+          <button className="save-lock-btn" style={{ margin: 0, background: 'transparent', color: 'var(--magenta)', border: '2px solid var(--magenta)', boxShadow: 'none' }} onClick={handleExport}>
+            <Download size={24} /> Export Gift File (.json)
+          </button>
+          
+          <button className="save-lock-btn" style={{ margin: 0 }} onClick={handleSave}>
+            <Check size={24} /> Save & Lock Gift App
+          </button>
+        </div>
 
       </div>
     </div>
