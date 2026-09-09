@@ -107,19 +107,19 @@ export default function SetupMode() {
               You are currently in <strong>Setup Mode</strong>. This screen will only be seen by YOU. Once you fill everything out and save it, this screen will disappear and the app will turn into a beautiful cinematic gift for your partner.
             </p>
 
-            <div style={{ background: '#ecfdf5', padding: '1rem', borderRadius: '12px', borderLeft: '4px solid #10b981', marginBottom: '2rem' }}>
-              <h3 style={{ color: '#047857', marginTop: 0, marginBottom: '0.5rem', fontSize: '1.1rem' }}>🔒 100% Private & Secure</h3>
-              <p style={{ margin: 0, color: '#065f46', fontSize: '0.95rem', lineHeight: '1.4' }}>
+            <div className="setup-banner banner-green">
+              <span className="setup-banner-title">🔒 100% Private & Secure</span>
+              <p className="setup-banner-text">
                 This app does <b>not</b> connect to the internet. There are no external databases or servers. Any private photos you upload and any sweet messages you write <b>never leave your phone</b>. Everything is saved strictly to your device's offline local memory. Your data is completely safe.
               </p>
             </div>
 
-            <div style={{ background: '#f0f4ff', padding: '1.5rem', borderRadius: '12px', borderLeft: '4px solid #3b82f6', marginBottom: '2rem' }}>
-              <h3 style={{ color: '#1d4ed8', marginTop: 0, marginBottom: '0.5rem', fontSize: '1.2rem' }}>📥 Did someone send you a Gift File?</h3>
-              <p style={{ marginBottom: '1rem', color: '#1e3a8a' }}>If your partner sent you a <b>birthday_gift.json</b> file, upload it here to unlock your gift!</p>
+            <div className="setup-banner banner-blue">
+              <span className="setup-banner-title">📥 Did someone send you a Gift File?</span>
+              <p className="setup-banner-text" style={{ marginBottom: '0.5rem' }}>If your partner sent you a <b>birthday_gift.json</b> file, upload it here to unlock your gift!</p>
               <button 
                 onClick={() => fileInputRef.current.click()}
-                style={{ background: '#3b82f6', color: 'white', border: 'none', padding: '0.8rem 1.5rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                style={{ background: '#3b82f6', color: 'white', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', alignSelf: 'flex-start' }}
               >
                 <Upload size={18} /> Load Gift File
               </button>
@@ -144,10 +144,12 @@ export default function SetupMode() {
               Once you are happy with everything, scroll to the bottom of this page and tap the pink <strong>"Save & Lock Gift"</strong> button. The app will immediately transform into the actual gift. You can then hand your phone to your partner!
             </p>
 
-            <div className="setup-warning">
-              <strong style={{ fontSize: '1.1rem', color: 'var(--magenta)', display: 'block', marginBottom: '0.5rem' }}>⚠️ Oh no, I made a mistake!</strong>
-              If you already clicked "Save & Lock" but need to fix a typo or change a photo, don't panic! <br/><br/>
-              <strong>Just tap the absolute bottom-right corner of your phone screen.</strong> There is a secret invisible button hidden there that will instantly reset the app and bring this Setup Mode back!
+            <div className="setup-banner banner-red" style={{ marginTop: '2rem' }}>
+              <span className="setup-banner-title">⚠️ Oh no, I made a mistake!</span>
+              <p className="setup-banner-text">
+                If you already clicked "Save & Lock" but need to fix a typo or change a photo, don't panic!<br/><br/>
+                <strong>Just tap the absolute bottom-right corner of your phone screen.</strong> There is a secret invisible button hidden there that will instantly reset the app and bring this Setup Mode back!
+              </p>
             </div>
           </div>
         )}
@@ -179,12 +181,10 @@ export default function SetupMode() {
               </div>
             </div>
 
-            <div style={{ background: '#fdf2f8', padding: '1.5rem', borderRadius: '12px', borderLeft: '4px solid var(--magenta)', marginTop: '2rem' }}>
-              <h3 style={{ color: '#831843', marginTop: 0, marginBottom: '1rem', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                🔒 Password Lock Screen
-              </h3>
+            <div className="setup-banner banner-red" style={{ marginTop: '2rem' }}>
+              <span className="setup-banner-title">🔒 Password Lock Screen</span>
               
-              <label className="setup-checkbox-item" style={{ marginBottom: '1rem' }}>
+              <label className="setup-checkbox-item" style={{ marginTop: '0.5rem', background: 'white', borderColor: 'rgba(244, 63, 94, 0.2)' }}>
                 <input 
                   type="checkbox" 
                   checked={formData.config?.enableQuiz} 
@@ -387,13 +387,13 @@ export default function SetupMode() {
           </div>
         )}
 
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '3rem' }}>
-          <button className="save-lock-btn" style={{ margin: 0, background: 'transparent', color: 'var(--magenta)', border: '2px solid var(--magenta)', boxShadow: 'none' }} onClick={handleExport}>
-            <Download size={24} /> Export Gift File (.json)
+        <div className="setup-buttons">
+          <button className="save-lock-btn secondary" onClick={handleExport}>
+            <Download size={20} /> Export Gift File (.json)
           </button>
           
-          <button className="save-lock-btn" style={{ margin: 0 }} onClick={handleSave}>
-            <Check size={24} /> Save & Lock Gift App
+          <button className="save-lock-btn" onClick={handleSave}>
+            <Check size={20} /> Save & Lock Gift App
           </button>
         </div>
 
