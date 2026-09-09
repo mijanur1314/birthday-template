@@ -45,6 +45,29 @@ If you already clicked "Save & Lock Gift" but you need to go back and change a s
 
 ---
 
+## 📤 Sending the Gift to Your Partner
+
+Because this app works entirely offline, you can't just send the APK to your partner (otherwise they will see the Setup screen). There are two ways to give the gift:
+
+**Method 1: The In-Person Method (Recommended)**
+Install the app on your *own* phone, set everything up, click "Save & Lock", and then physically hand your phone to your partner to play with.
+
+**Method 2: Send via WhatsApp (Midnight Surprise)**
+1. On your phone, set up all the photos and letters.
+2. At the bottom of the Setup screen, click the **"Export Gift File (.json)"** button. This downloads a tiny file to your phone containing all your photos.
+3. WhatsApp your partner the APK and the `.json` file at 12:00 AM!
+4. Tell them to install the APK, click the **"Load Gift File"** button on the first screen, and select the `.json` file you sent them. The app will instantly absorb the photos and unlock!
+
+---
+
+## 🔒 Privacy & Security (Is this safe?)
+
+Because this is a 3rd party APK, your followers might be scared to install it or upload their private photos. You can copy/paste this message to reassure them:
+
+> **Privacy Guarantee:** This app does **not** connect to the internet. There is no external database or server. Any photos you upload and any private letters you write **never leave your phone**. They are saved strictly to your device's offline local memory. The creator of this app cannot see your photos or data. It is 100% private and secure!
+
+---
+
 ## 🚀 How to Share with Your Followers
 
 If you are a creator sharing this with your followers, they do not need to use GitHub. 

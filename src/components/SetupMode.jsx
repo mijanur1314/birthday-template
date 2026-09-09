@@ -107,6 +107,13 @@ export default function SetupMode() {
               You are currently in <strong>Setup Mode</strong>. This screen will only be seen by YOU. Once you fill everything out and save it, this screen will disappear and the app will turn into a beautiful cinematic gift for your partner.
             </p>
 
+            <div style={{ background: '#ecfdf5', padding: '1rem', borderRadius: '12px', borderLeft: '4px solid #10b981', marginBottom: '2rem' }}>
+              <h3 style={{ color: '#047857', marginTop: 0, marginBottom: '0.5rem', fontSize: '1.1rem' }}>🔒 100% Private & Secure</h3>
+              <p style={{ margin: 0, color: '#065f46', fontSize: '0.95rem', lineHeight: '1.4' }}>
+                This app does <b>not</b> connect to the internet. There are no external databases or servers. Any private photos you upload and any sweet messages you write <b>never leave your phone</b>. Everything is saved strictly to your device's offline local memory. Your data is completely safe.
+              </p>
+            </div>
+
             <div style={{ background: '#f0f4ff', padding: '1.5rem', borderRadius: '12px', borderLeft: '4px solid #3b82f6', marginBottom: '2rem' }}>
               <h3 style={{ color: '#1d4ed8', marginTop: 0, marginBottom: '0.5rem', fontSize: '1.2rem' }}>📥 Did someone send you a Gift File?</h3>
               <p style={{ marginBottom: '1rem', color: '#1e3a8a' }}>If your partner sent you a <b>birthday_gift.json</b> file, upload it here to unlock your gift!</p>
