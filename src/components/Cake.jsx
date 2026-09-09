@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import confetti from "canvas-confetti";
 import { motion, AnimatePresence } from "framer-motion";
 import { playPaperRustle } from "../utils/sound";
+import { useAppData } from "../context/AppDataContext";
 
 const ElegantBalloon = ({ size = 120, delay = 0, style }) => {
   return (
@@ -128,6 +129,9 @@ export default function Cake({
   litCandles,
   setLitCandles,
 }) {
+  const { data } = useAppData();
+  const cakeAgeStr = (data?.cakeAge || "23").substring(0, 3); // Max 3 digits
+
   const [allOut, setAllOut] = useState(cakeBlown);
   const [showNext, setShowNext] = useState(cakeBlown);
   const [openedGifts, setOpenedGifts] = useState({});
@@ -594,10 +598,16 @@ export default function Cake({
 
           {/* Candles */}
           <g id="candles">
-            {[105, 140].map((x, i) => {
+            {cakeAgeStr.split('').map((char, i) => {
+              const numDigits = cakeAgeStr.length;
+              let x;
+              if (numDigits === 1) x = 122;
+              else if (numDigits === 2) x = i === 0 ? 105 : 140;
+              else x = i === 0 ? 90 : (i === 1 ? 122 : 154);
+
               const baseY = 78;
               const topY = baseY - 24; // White stick goes up to topY
-              const number = i === 0 ? "2" : "3";
+              const number = char;
               return (
                 <g key={i} className="candle">
                   {/* Shadow */}
@@ -746,7 +756,7 @@ export default function Cake({
       )}
 
       <div id="wish-msg" className={allOut ? "show" : ""}>
-        Happy Birthday, My Princess Nur — may your every wish come true 🩷
+        Happy Birthday, {data?.partnerName || 'My Love'} — may your every wish come true 🩷
       </div>
 
       <div className="flex-center" style={{ gap: "1rem", marginTop: "1.4rem" }}>

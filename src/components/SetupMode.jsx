@@ -56,14 +56,26 @@ export default function SetupMode() {
         {activeTab === 'general' && (
           <div>
             <h3>Basic Settings</h3>
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem' }}>Partner's Name</label>
-              <input 
-                type="text" 
-                value={formData.partnerName} 
-                onChange={e => setFormData({...formData, partnerName: e.target.value})}
-                style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid #ccc' }}
-              />
+            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ display: 'block', marginBottom: '0.5rem' }}>Partner's Name</label>
+                <input 
+                  type="text" 
+                  value={formData.partnerName} 
+                  onChange={e => setFormData({...formData, partnerName: e.target.value})}
+                  style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid #ccc' }}
+                />
+              </div>
+              <div style={{ width: '100px' }}>
+                <label style={{ display: 'block', marginBottom: '0.5rem' }}>Age</label>
+                <input 
+                  type="text" 
+                  maxLength={2}
+                  value={formData.cakeAge || "23"} 
+                  onChange={e => setFormData({...formData, cakeAge: e.target.value.replace(/\D/g, '')})}
+                  style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid #ccc' }}
+                />
+              </div>
             </div>
             
             <h3 style={{ marginTop: '2rem' }}>Enable/Disable Pages</h3>

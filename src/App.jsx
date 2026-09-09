@@ -45,7 +45,7 @@ export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
   const [cakeBlown, setCakeBlown] = useState(false);
-  const [litCandles, setLitCandles] = useState([true, true]);
+  const [litCandles, setLitCandles] = useState(Array(data?.cakeAge?.length || 2).fill(true));
   
   const [currentStep, setCurrentStep] = useState('envelope');
   const cakeAudioRef = useRef(null);
@@ -170,7 +170,7 @@ export default function App() {
   const restartApp = () => {
     setCurrentStep(pageOrder[0] || 'envelope');
     setCakeBlown(false);
-    setLitCandles([true, true, true]);
+    setLitCandles(Array(data?.cakeAge?.length || 2).fill(true));
     if (cakeAudioRef.current) {
       cakeAudioRef.current.pause();
       cakeAudioRef.current.currentTime = 0;
