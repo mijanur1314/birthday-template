@@ -27,7 +27,7 @@ const imagesToPreload = [
 ];
 
 export default function App() {
-  const { data, isSetupComplete, editData } = useAppData();
+  const { data, isSetupComplete, editData, isCreator } = useAppData();
   
   const config = data?.config;
   const pageOrder = data?.pageOrder || [];
@@ -184,11 +184,13 @@ export default function App() {
         ))}
       </div>
 
-      {/* Secret reset trigger corner */}
-      <div 
-        onClick={editData}
-        style={{ position: 'fixed', bottom: 0, right: 0, width: '50px', height: '50px', zIndex: 99999 }}
-      />
+      {/* Secret reset trigger corner - ONLY FOR CREATOR */}
+      {isCreator && (
+        <div 
+          onClick={editData}
+          style={{ position: 'fixed', bottom: 0, right: 0, width: '50px', height: '50px', zIndex: 99999 }}
+        />
+      )}
 
       {/* Background effects constantly running */}
       <RosePetals />

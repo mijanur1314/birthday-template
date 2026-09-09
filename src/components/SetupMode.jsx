@@ -18,7 +18,7 @@ export default function SetupMode() {
   });
 
   const handleSave = () => {
-    saveData(formData);
+    saveData(formData, true);
   };
 
   const handleExport = () => {
@@ -45,7 +45,7 @@ export default function SetupMode() {
         try {
           const importedData = JSON.parse(e.target.result);
           if(importedData && importedData.pageOrder) {
-            saveData(importedData);
+            saveData(importedData, false);
           } else {
             alert("Invalid gift file format!");
           }

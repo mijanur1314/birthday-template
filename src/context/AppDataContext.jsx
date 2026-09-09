@@ -15,6 +15,7 @@ const AppDataContext = createContext();
 export function AppDataProvider({ children }) {
   const [data, setData] = useState(null);
   const [isSetupComplete, setIsSetupComplete] = useState(false);
+  const [isCreator, setIsCreator] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const defaultData = {
@@ -47,7 +48,10 @@ export function AppDataProvider({ children }) {
       try {
         const storedSetup = await localforage.getItem('isSetupComplete');
         const storedData = await localforage.getItem('appData');
+        const storedIsCreator = await localforage.getItem('isCreator');
         
+        setIsCreator(!!storedIsCreator);
+
         if (storedSetup && storedData) {
           setData({ ...defaultData, ...storedData });
           setIsSetupComplete(true);
@@ -65,12 +69,14 @@ export function AppDataProvider({ children }) {
     loadData();
   }, []);
 
-  const saveData = async (newData) => {
+  const saveData = async (newData, isCreatorFlag = true) => {
     try {
       await localforage.setItem('appData', newData);
       await localforage.setItem('isSetupComplete', true);
+      await localforage.setItem('isCreator', isCreatorFlag);
       setData(newData);
       setIsSetupComplete(true);
+      setIsCreator(isCreatorFlag);
     } catch (err) {
       console.error("Failed to save data", err);
     }
@@ -90,7 +96,7 @@ export function AppDataProvider({ children }) {
   if (loading) return null; // or a tiny spinner
 
   return (
-    <AppDataContext.Provider value={{ data, saveData, editData, resetData, isSetupComplete }}>
+    <AppDataContext.Provider value={{ data, saveData, editData, resetData, isSetupComplete, isCreator }}>
       {children}
     </AppDataContext.Provider>
   );
