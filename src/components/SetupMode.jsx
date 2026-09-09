@@ -21,11 +21,27 @@ export default function SetupMode() {
     saveData(formData, true);
   };
 
-  const handleExport = () => {
+  const handleExport = async () => {
     const jsonString = JSON.stringify(formData);
     const blob = new Blob([jsonString], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
+    const file = new File([blob], "birthday_gift.json", { type: "application/json" });
+
+    // Try native sharing first (works great on mobile/Android/iOS)
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({
+          files: [file],
+          title: 'Birthday Gift Data',
+          text: 'Here is the custom birthday gift data file!'
+        });
+        return; // Successfully shared/saved natively
+      } catch (err) {
+        console.log("Share cancelled or failed, falling back to download", err);
+      }
+    }
     
+    // Fallback to traditional browser download
+    const url = URL.createObjectURL(blob);
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href", url);
     downloadAnchorNode.setAttribute("download", "birthday_gift.json");
