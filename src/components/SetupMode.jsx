@@ -175,8 +175,9 @@ export default function SetupMode() {
                   type="text" 
                   className="setup-input"
                   maxLength={2}
-                  value={formData.cakeAge || "23"} 
+                  value={formData.cakeAge || ""} 
                   onChange={e => setFormData({...formData, cakeAge: e.target.value.replace(/\D/g, '')})}
+                  placeholder="e.g. 23"
                 />
               </div>
             </div>

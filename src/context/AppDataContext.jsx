@@ -25,8 +25,8 @@ export function AppDataProvider({ children }) {
     promises: defaultPromises,
     reasons: defaultReasons,
     storyPages: defaultStoryPages,
-    partnerName: "Your Partner's Name",
-    cakeAge: "23",
+    partnerName: "",
+    cakeAge: "",
     pageOrder: [
       'envelope',
       'letter',
