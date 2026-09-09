@@ -232,16 +232,16 @@ export default function SetupMode() {
             <p style={{ marginBottom: '1.5rem', color: '#666' }}>Uncheck any pages you don't want to include in the final gift.</p>
             <div className="setup-checkbox-list">
               {[
-                { id: 'envelope', name: 'Envelope', desc: 'A beautiful clickable envelope that opens.' },
-                { id: 'letter', name: 'Letter', desc: 'A typewriter animation of your love letter.' },
-                { id: 'story', name: 'Story', desc: 'A 3D interactive photo album book.' },
-                { id: 'reasons', name: 'Reasons', desc: 'Flip-cards showing why you love them.' },
-                { id: 'promises', name: 'Promises', desc: 'Beautiful cards for your romantic promises.' },
-                { id: 'openwhen', name: 'Open When', desc: 'Mini envelopes to open in the future.' },
-                { id: 'polaroids', name: 'Polaroids', desc: 'A scattered wall of clickable photos.' },
-                { id: 'videonote', name: 'Video Note', desc: 'A page to play a personal video message.' },
-                { id: 'cake', name: 'Cake', desc: 'A 3D cake they can blow out using the mic.' },
-                { id: 'closing', name: 'Closing', desc: 'The final question and birthday wish.' }
+                { id: 'envelope', name: 'Step 1: Envelope', desc: 'A beautiful clickable envelope that opens.' },
+                { id: 'letter', name: 'Step 2: Letter', desc: 'A typewriter animation of your love letter.' },
+                { id: 'story', name: 'Step 3: Story', desc: 'A 3D interactive photo album book.' },
+                { id: 'reasons', name: 'Step 4: Reasons', desc: 'Flip-cards showing why you love them.' },
+                { id: 'promises', name: 'Step 5: Promises', desc: 'Beautiful cards for your romantic promises.' },
+                { id: 'openwhen', name: 'Step 6: Open When', desc: 'Mini envelopes to open in the future.' },
+                { id: 'polaroids', name: 'Step 7: Polaroids', desc: 'A scattered wall of clickable photos.' },
+                { id: 'videonote', name: 'Step 8: Video Note', desc: 'A page to play a personal video message.' },
+                { id: 'cake', name: 'Step 9: Cake', desc: 'A 3D cake they can blow out using the mic.' },
+                { id: 'closing', name: 'Step 10: Closing', desc: 'The final question and birthday wish.' }
               ].map(page => (
                 <label key={page.id} className="setup-checkbox-item" style={{ alignItems: 'flex-start', padding: '0.8rem' }}>
                   <input 

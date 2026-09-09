@@ -202,8 +202,8 @@
 
 /* Beautiful Checkbox Lists */
 .setup-checkbox-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
 }
 
