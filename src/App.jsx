@@ -71,7 +71,7 @@ export default function App() {
 
   const toggleMusic = () => {
     if (!bgmAudioRef.current) return;
-    if (isMusicPlaying) {
+    if (!bgmAudioRef.current.paused) {
       bgmAudioRef.current.pause();
       setIsMusicPlaying(false);
     } else {
@@ -82,11 +82,11 @@ export default function App() {
   };
 
   const pauseMusic = useCallback(() => {
-    if (bgmAudioRef.current && isMusicPlaying) {
+    if (bgmAudioRef.current && !bgmAudioRef.current.paused) {
       bgmAudioRef.current.pause();
       setIsMusicPlaying(false);
     }
-  }, [isMusicPlaying]);
+  }, []);
 
   useEffect(() => {
     // Auto pause BGM when entering Cake page
