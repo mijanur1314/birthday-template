@@ -219,13 +219,26 @@ export default function Closing({ onPrev, onRestart }) {
             </p>
           </motion.div>
 
-          <button
-            className="next-btn"
-            onClick={onRestart}
-            style={{ boxShadow: "0 0 20px rgba(194, 24, 91, 0.8)" }}
-          >
-            Start Again
-          </button>
+          <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <button
+              className="next-btn"
+              onClick={onRestart}
+              style={{ boxShadow: "0 0 20px rgba(194, 24, 91, 0.8)" }}
+            >
+              Watch Again
+            </button>
+            <button
+              className="next-btn"
+              onClick={() => {
+                if (window.confirm("This will close the current gift and let you create a brand new one. Are you sure?")) {
+                  window.location.href = "/?reset=true";
+                }
+              }}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.5)', color: '#fff', fontSize: '0.9rem', padding: '0.8rem 1.5rem' }}
+            >
+              Create Your Own Gift ✨
+            </button>
+          </div>
         </>
       )}
     </div>
