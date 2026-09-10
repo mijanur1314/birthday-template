@@ -27,7 +27,14 @@ const imagesToPreload = [
 ];
 
 export default function App() {
-  const { data, isSetupComplete, editData, isCreator } = useAppData();
+  const { data, isSetupComplete, editData, isCreator, resetData } = useAppData();
+
+  useEffect(() => {
+    if (window.location.search.includes("reset=true")) {
+      resetData();
+      window.history.replaceState({}, "", "/");
+    }
+  }, []);
   
   const config = data?.config;
   const pageOrder = data?.pageOrder || [];
