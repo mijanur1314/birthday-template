@@ -86,6 +86,10 @@ export default function SetupMode() {
           newData.reasons[index].image = base64String;
         } else if (section === 'storyPages') {
           newData.storyPages[index].image = base64String;
+        } else if (section === 'videoNote') {
+          newData.videoNote = base64String;
+        } else if (section === 'closingImage') {
+          newData.closingImage = base64String;
         }
         setFormData(newData);
       };
@@ -116,6 +120,7 @@ export default function SetupMode() {
         <button className={activeTab === 'story' ? 'active-tab' : ''} onClick={() => setActiveTab('story')}>Storybook</button>
         <button className={activeTab === 'polaroids' ? 'active-tab' : ''} onClick={() => setActiveTab('polaroids')}>Polaroids</button>
         <button className={activeTab === 'reasons' ? 'active-tab' : ''} onClick={() => setActiveTab('reasons')}>Reasons</button>
+        <button className={activeTab === 'media' ? 'active-tab' : ''} onClick={() => setActiveTab('media')}>Video & Closing</button>
       </div>
 
       <div className="setup-card">
@@ -541,6 +546,67 @@ export default function SetupMode() {
             >
               + Add Reason
             </button>
+          </div>
+        )}
+
+        
+        {activeTab === 'media' && (
+          <div>
+            <h2>Video Note & Closing Image</h2>
+            <p style={{ marginBottom: '1.5rem', color: '#666' }}>Upload a short video message and a beautiful background image for the final screen.</p>
+            
+            <div className="setup-photo-item" style={{ flexDirection: 'column', alignItems: 'flex-start', padding: '1.5rem', marginBottom: '1.5rem' }}>
+              <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '1rem', fontSize: '1.1rem' }}>Personal Video Message</label>
+              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', width: '100%' }}>
+                <div className="setup-photo-upload" style={{ width: '150px', height: '100px', borderRadius: '8px' }}>
+                  {formData.videoNote ? (
+                    <div style={{ width: '100%', height: '100%', background: '#000', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.9rem' }}>Video Selected ✓</div>
+                  ) : (
+                    <div style={{ color: '#aaa', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <Camera size={32} style={{ marginBottom: '0.5rem' }} />
+                      <span style={{ fontSize: '0.8rem' }}>Upload Video</span>
+                    </div>
+                  )}
+                  <input 
+                    type="file" 
+                    accept="video/mp4,video/quicktime,video/*" 
+                    onChange={e => handleImageUpload(e, 'videoNote')}
+                    style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', zIndex: 10 }}
+                  />
+                </div>
+                <div style={{ flex: 1, fontSize: '0.9rem', color: '#666', lineHeight: 1.5 }}>
+                  <p>Upload a short MP4 video. Please keep it under 15 seconds so the app doesn't become too heavy for phones to load!</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="setup-photo-item" style={{ flexDirection: 'column', alignItems: 'flex-start', padding: '1.5rem' }}>
+              <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '1rem', fontSize: '1.1rem' }}>Closing Background Photo</label>
+              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', width: '100%' }}>
+                <div className="setup-photo-upload" style={{ width: '150px', height: '100px', borderRadius: '8px' }}>
+                  {formData.closingImage && formData.closingImage !== '/placeholder.svg' ? (
+                    <>
+                      <img src={formData.closingImage} alt="" style={{ objectFit: 'cover' }} />
+                      <div className="setup-photo-overlay"><Camera /></div>
+                    </>
+                  ) : (
+                    <div style={{ color: '#aaa', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <Camera size={32} style={{ marginBottom: '0.5rem' }} />
+                      <span style={{ fontSize: '0.8rem' }}>Upload Image</span>
+                    </div>
+                  )}
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={e => handleImageUpload(e, 'closingImage')}
+                    style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', zIndex: 10 }}
+                  />
+                </div>
+                <div style={{ flex: 1, fontSize: '0.9rem', color: '#666', lineHeight: 1.5 }}>
+                  <p>This image will smoothly fade in as the background for the final 'Happy Birthday' screen. A wide landscape photo works best.</p>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 

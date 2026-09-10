@@ -80,7 +80,7 @@ export default function Closing({ onPrev, onRestart }) {
               style={{
                 position: "absolute",
                 inset: 0,
-                backgroundImage: "url(/placeholder.svg)",
+                backgroundImage: `url(${data?.closingImage || "/placeholder.svg"})`,
                 backgroundSize: isMobile ? "contain" : "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",

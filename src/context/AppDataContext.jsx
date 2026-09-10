@@ -29,6 +29,8 @@ export function AppDataProvider({ children }) {
     partnerName: "",
     cakeAge: "",
     birthdayDate: "",
+    videoNote: "",
+    closingImage: "",
     pageOrder: [
       'envelope',
       'letter',

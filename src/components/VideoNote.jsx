@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useAppData } from "../context/AppDataContext";
 import { Play } from 'lucide-react';
 
 export default function VideoNote({ onNext, onPrev, onPlayVideo }) {
+  const { data } = useAppData();
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const mediaRef = useRef(null);
@@ -83,7 +85,7 @@ export default function VideoNote({ onNext, onPrev, onPlayVideo }) {
         <div className="video-container">
           <video 
             ref={mediaRef} 
-            src="/message.mp4" 
+            src={data?.videoNote || "/message.mp4"} 
             className="message-video"
             playsInline
             preload="metadata"
