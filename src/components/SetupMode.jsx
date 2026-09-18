@@ -7,6 +7,7 @@ export default function SetupMode() {
   const { data, saveData } = useAppData();
   const [activeTab, setActiveTab] = useState('instructions');
   const [isExporting, setIsExporting] = useState(false);
+  const [rawExportData, setRawExportData] = useState("");
   const [formData, setFormData] = useState(data || {
     partnerName: "",
     cakeAge: "23",
@@ -54,7 +55,8 @@ export default function SetupMode() {
           downloadAnchorNode.remove();
           URL.revokeObjectURL(url);
           
-          alert("File saved as 'birthday_gift.txt'!\n\nPlease check your phone's 'Downloads' folder. If you can't find it, look for 'txt' files.");
+          alert("Your device is blocking background downloads.\n\nWe will now display the raw code on your screen so you can manually copy it!");
+          setRawExportData(jsonString);
         }
       } catch (e) {
         alert("Failed to export! If you added a video, it might be too large. Try removing the video.");
@@ -120,6 +122,37 @@ export default function SetupMode() {
 
   return (
     <div className="setup-container">
+      {rawExportData && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.95)', zIndex: 99999, display: 'flex', flexDirection: 'column', padding: '1.5rem', overflow: 'hidden' }}>
+          <h2 style={{ color: 'white', marginBottom: '1rem', marginTop: '2rem' }}>Manual Export</h2>
+          <p style={{ color: '#ccc', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+            Because you are testing inside an APK or custom browser, normal downloads are completely blocked by Android's strict security.<br/><br/>
+            Please tap the button below to instantly copy your gift data, then paste it into any Notes app or email to save it!
+          </p>
+          <button 
+            onClick={() => {
+              navigator.clipboard.writeText(rawExportData).then(() => alert("Copied successfully! Paste it anywhere to save it."));
+            }}
+            style={{ background: '#f43f5e', color: 'white', padding: '1.2rem', border: 'none', borderRadius: '8px', marginBottom: '1.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}
+          >
+            Copy All Data to Clipboard 📋
+          </button>
+          <div style={{ flex: 1, position: 'relative', minHeight: 0 }}>
+            <textarea 
+              readOnly 
+              value={rawExportData} 
+              style={{ position: 'absolute', inset: 0, width: '100%', borderRadius: '8px', padding: '1rem', fontFamily: 'monospace', fontSize: '0.75rem', background: '#222', color: '#0f0', border: '1px solid #444', resize: 'none' }}
+            />
+          </div>
+          <button 
+            onClick={() => setRawExportData("")}
+            style={{ background: '#444', color: 'white', padding: '1rem', border: 'none', borderRadius: '8px', marginTop: '1.5rem', fontWeight: 'bold' }}
+          >
+            Close Window
+          </button>
+        </div>
+      )}
+
       <div className="setup-header">
         <h1>Gift Setup Mode</h1>
         <p>Customize the app with your own photos and text before giving it to your partner!</p>
