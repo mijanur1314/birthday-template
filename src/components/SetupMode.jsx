@@ -6,6 +6,7 @@ import '../styles/setup.css';
 export default function SetupMode() {
   const { data, saveData } = useAppData();
   const [activeTab, setActiveTab] = useState('instructions');
+  const [isExporting, setIsExporting] = useState(false);
   const [formData, setFormData] = useState(data || {
     partnerName: "",
     cakeAge: "23",
@@ -21,34 +22,45 @@ export default function SetupMode() {
     saveData(formData, true);
   };
 
-  const handleExport = async () => {
-    const jsonString = JSON.stringify(formData);
-    const blob = new Blob([jsonString], { type: "application/json" });
-    const file = new File([blob], "birthday_gift.json", { type: "application/json" });
-
-    // Try native sharing first (works great on mobile/Android/iOS)
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+  const handleExport = () => {
+    setIsExporting(true);
+    setTimeout(async () => {
       try {
-        await navigator.share({
-          files: [file],
-          title: 'Birthday Gift Data',
-          text: 'Here is the custom birthday gift data file!'
-        });
-        return; // Successfully shared/saved natively
-      } catch (err) {
-        console.log("Share cancelled or failed, falling back to download", err);
+        const jsonString = JSON.stringify(formData);
+        const blob = new Blob([jsonString], { type: "text/plain" });
+        const file = new File([blob], "birthday_gift.txt", { type: "text/plain" });
+
+        let shared = false;
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: 'Birthday Gift Data',
+              text: 'Here is the custom birthday gift data file!'
+            });
+            shared = true;
+          } catch (err) {
+            console.log("Share failed, falling back", err);
+          }
+        }
+        
+        if (!shared) {
+          const url = URL.createObjectURL(blob);
+          const downloadAnchorNode = document.createElement('a');
+          downloadAnchorNode.setAttribute("href", url);
+          downloadAnchorNode.setAttribute("download", "birthday_gift.txt");
+          document.body.appendChild(downloadAnchorNode);
+          downloadAnchorNode.click();
+          downloadAnchorNode.remove();
+          URL.revokeObjectURL(url);
+          
+          alert("File saved as 'birthday_gift.txt'!\n\nPlease check your phone's 'Downloads' folder. If you can't find it, look for 'txt' files.");
+        }
+      } catch (e) {
+        alert("Failed to export! If you added a video, it might be too large. Try removing the video.");
       }
-    }
-    
-    // Fallback to traditional browser download
-    const url = URL.createObjectURL(blob);
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", url);
-    downloadAnchorNode.setAttribute("download", "birthday_gift.json");
-    document.body.appendChild(downloadAnchorNode);
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-    URL.revokeObjectURL(url);
+      setIsExporting(false);
+    }, 100);
   };
 
   const fileInputRef = useRef(null);
@@ -611,8 +623,8 @@ export default function SetupMode() {
         )}
 
         <div className="setup-buttons">
-          <button className="save-lock-btn secondary" onClick={handleExport}>
-            <Download size={20} /> Export Gift File (.json)
+          <button className="save-lock-btn secondary" onClick={handleExport} disabled={isExporting}>
+            <Download size={20} /> {isExporting ? "Exporting... Please wait" : "Export Gift File (.txt)"}
           </button>
           
           <button className="save-lock-btn" onClick={handleSave}>
