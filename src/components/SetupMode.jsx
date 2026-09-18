@@ -37,7 +37,7 @@ export default function SetupMode() {
                path: fileName,
                data: jsonString,
                directory: Directory.Documents,
-               encoding: 'utf8'
+               encoding: Encoding.UTF8
              });
              
              await Share.share({
