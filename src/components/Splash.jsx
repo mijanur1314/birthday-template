@@ -33,7 +33,7 @@ export default function Splash({ onComplete }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.8 }}
             transition={{ delay: 1, duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
-            style={{ marginTop: '2rem', fontSize: '1.2rem', fontFamily: 'serif', letterSpacing: '2px' }}
+            style={{ marginTop: '2rem', fontSize: '1.2rem', fontFamily: 'serif', letterSpacing: '2px', color: '#ffffff', textShadow: '0 0 10px rgba(255,255,255,0.5)' }}
           >
             Tap anywhere to open
           </motion.p>
