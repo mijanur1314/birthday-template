@@ -29,30 +29,7 @@ export default function SetupMode() {
       try {
         const jsonString = JSON.stringify(formData);
         
-        // --- NATIVE CAPACITOR APK FIX ---
-        if (Capacitor.isNativePlatform()) {
-           try {
-             const fileName = "birthday_gift_" + Date.now() + ".txt";
-             const result = await Filesystem.writeFile({
-               path: fileName,
-               data: jsonString,
-               directory: Directory.Documents,
-               encoding: Encoding.UTF8
-             });
-             
-             await Share.share({
-               title: 'Birthday Gift File',
-               text: 'Send this to yourself or your partner to load the gift!',
-               url: result.uri,
-               dialogTitle: 'Share your Gift File'
-             });
-             setIsExporting(false);
-             return;
-           } catch (nativeErr) {
-             console.error("Native export failed", nativeErr);
-           }
-        }
-        // ---------------------------------
+
 
         const blob = new Blob([jsonString], { type: "text/plain" });
         const file = new File([blob], "birthday_gift.txt", { type: "text/plain" });
